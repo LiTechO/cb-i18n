@@ -4,8 +4,8 @@ Advanced internationalisation (i18n) support for Discord bots
 
 This module works with any well-known Discord API library for Python, including:
 
-- [discord.py](https://github.com/Rapptz/discord.py) (and any   derived libraries such as [disnake](https://github.com/DisnakeDev/disnake), nextcord and pycord)
-- hikari.py
+- [discord.py](https://github.com/Rapptz/discord.py) (and any derived libraries such as [disnake](https://github.com/DisnakeDev/disnake), [nextcord](https://github.com/nextcord/nextcord) and [pycord](https://github.com/Pycord-Development/pycord))
+- [hikari.py](https://github.com/hikari-py/hikari)
 
 ### Installation
 
@@ -33,6 +33,8 @@ py -3 setup.py install
 ```
 
 ### Example usage of `cb-i18n`:
+
+*In fact, this library can work with just any application written in python. The first arg in `Translator.translate` can be **anything**, you can pass integer, string, custom object or even module, all will work as expected by you. Internally, lib does nothing with that "context", it just passing it to your `locale_getter` and all.*
 
 Directory structure:
 
@@ -103,7 +105,7 @@ async def on_ready():
     
     translator = i18n.make_translator()
     translator.set_locale_dir("./languages/")
-    translator.set_get_locale_func(get_locale)
+    translator.set_locale_getter(get_locale)
     translator.load_translations()
     _ = translator.translate
     print("  Loaded i18n.")
@@ -124,6 +126,7 @@ async def hi(ctx: commands.Context, name: str):
 @bot.command(description="You're Genius, right?")
 async def genius(ctx: commands.Context):
     return await ctx.send(_(ctx, "You're a Genius!"))
+
 try:
     bot.run(os.environ.get("BOT_TOKEN"))
 except Exception as exc:
