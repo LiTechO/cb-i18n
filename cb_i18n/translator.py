@@ -2,9 +2,6 @@ import re
 import os
 import json
 import warnings
-import asyncio as aio
-
-loop = aio.get_event_loop()
 
 TFile = re.compile("[a-z]{2,2}-[A-Z]{2,2}\\.json")
 
@@ -69,14 +66,22 @@ class Translator:
             if TFile.fullmatch(file):
                 with open(self.locale_dir + '/' + file, 'rb') as fp:
                     self.translations[file[:5]] = json.loads(fp.read())
+        
+        self.translations_loaded = True
     
     def reload_translations(self) -> None:
         """
         Clears ``translations`` and ``translations_loaded``, then calls ``load_translations()``
         """
+        old = self.transaltions.copy()
         self.translations = {}
         self.translations_loaded = False
-        self.load_translations()
+        try:
+            self.load_translations()
+        except Exception as exc:
+            self.translations = old
+            self.translations_loaded = True
+            warnings.warn("Failed to reload translations, falling back to the previous one.\nCaused by {}: {}".format(exc.__class__.__name__, str(exc))
     
     def translate(self, context, message: str) -> str:
         """
