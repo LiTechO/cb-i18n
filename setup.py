@@ -7,7 +7,7 @@ setup(
     project_urls = {
         "Issue tracker": "https://github.com/LiTech/cb-i18n/issues"
     },
-    version = "1.0.0",
+    version = "1.0.1",
     packages = [
         "cb_i18n",
     ],
