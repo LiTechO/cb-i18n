@@ -81,7 +81,7 @@ class Translator:
         except Exception as exc:
             self.translations = old
             self.translations_loaded = True
-            warnings.warn("Failed to reload translations, falling back to the previous one.\nCaused by {}: {}".format(exc.__class__.__name__, str(exc))
+            warnings.warn("Failed to reload translations, falling back to the previous one.\nCaused by {}: {}".format(exc.__class__.__name__, str(exc)))
     
     def translate(self, context, message: str) -> str:
         """
