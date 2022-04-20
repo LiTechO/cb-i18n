@@ -120,13 +120,13 @@ class Translator:
         table = self.translations.get(lc)
         
         if not table:
-            raise RuntimeError("Translation table for locale \"{}\" is not set".format(lc))
+            raise RuntimeError("Translation table for locale \"{}\" is not set".format(repr(lc)))
         
         localized = table.get(message)
         
         if not localized:
             localized = table.get("@__default__@")
-            warnings.warn("Localisation message was not found for message \"{}\". Falling back to default".format(message))
+            warnings.warn("Localisation message was not found for message \"{}\". Falling back to default".format(repr(message)))
         
         if not localized:
             raise RuntimeError("Localisation message was not found and @__default__@ message was not set")
