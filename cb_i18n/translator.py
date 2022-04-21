@@ -73,7 +73,7 @@ class Translator:
         """
         Clears ``translations`` and ``translations_loaded``, then calls ``load_translations()``
         """
-        old = self.transaltions.copy()
+        old = self.translations.copy()
         self.translations = {}
         self.translations_loaded = False
         try:
